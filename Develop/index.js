@@ -1,33 +1,30 @@
-// TODO: Include packages needed for this application
-//node modules
+//invokes inquirer
 const inquirer = require('inquirer');
+//fs is for 'file system'
 const fs = require('fs');
 
-// const content = 'something is working here, dunno what tho :) yay';
 
-// try {
-//   fs.writeFileSync('/Users/pjrasmussen/bootcamp/Assignments/week-9/Professional-README-Generator/Develop/README.md', content);
-//   // file written successfully
-// } catch (err) {
-//   console.error(err);
-// }
-
-// TODO: Create an array of questions for user input
+//this is an array of questions set up based on inquirer docs
 const questions = [
     {
         type: 'input',
         name: 'fullName',
-        message: 'What is your name?'
+        message: 'What is your full name? (for questions section of README)'
     },
     {
         type: 'input',
         name: 'email',
-        message: 'What is your email? (for questions section)'
+        message: 'What is your email? (for questions section of README)'
     },
     {
         type: 'input',
         name: 'github',
-        message: 'What is your github username? (for questions section)'
+        message: 'What is your github username? (for questions section of README)'
+    },
+    {
+        type: 'input',
+        name: 'contactRules',
+        message: 'When a user reaches out, let them know how you prefer to be contacted; Ex. "I would like users to reach out via my ("email address" or "github")'
     },
     {
         type: 'input',
@@ -37,17 +34,17 @@ const questions = [
     {
         type: 'editor',
         name: 'description',
-        message: 'Write a description of your project. When you are ready to save; press esc, type :wq and press enter'
+        message: 'Write a description of your project. **When you are ready to save; press esc, type :wq and press enter'
     },
     {
         type: 'editor',
         name: 'installation',
-        message: 'Write a step-by-step of how a user might install this application. When you are ready to save; press esc, type :wq and press enter'
+        message: 'Write the installation process of this application. **When you are ready to save; press esc, type :wq and press enter'
     },
     {
         type: 'editor',
         name: 'usage',
-        message: 'Explain this applications main purpose and how it can be used. When you are ready to save; press esc, type :wq and press enter'
+        message: 'Explain how this application can be used. **When you are ready to save; press esc, type :wq and press enter'
     },
     {
         type: 'input',
@@ -57,29 +54,33 @@ const questions = [
     {
         type: 'input',
         name: 'contributions',
-        message: 'Would you like others to contribute to this project? (Y/N) If yes, make sure you add features to your github repo only allowing pull requests to be made instead of having changes go straight to main.'
+        message: 'Would you like others to contribute to this project? If NO, write a short description why not; If YES, write a short description how others can contribute and then add features to your github repo allowing pull requests to be created but only approved by code owner.'
     },
     {
         type: 'editor',
         name: 'troubleshooting',
-        message: 'How might a user run a test or troubleshoot this application? When you are ready to save; press esc, type :wq and press enter'
+        message: 'How might a user troubleshoot this application? **When you are ready to save; press esc, type :wq and press enter'
     }
 ];
 
+//writeToFile() doing exactly what it needs to!
 function writeToFile() {
+    //this makes it so that when you type node index.js into the terminal (after cd'ing into Develop folder)- the questions prompt the user
     return inquirer.prompt(questions)
     .then((questions) => {
         console.log(questions)
+        //this is creating a README.md file and is grabbing the user's input to fill in the empty space
         fs.writeFile("README.md", `
 # ${questions.title}
 ${questions.description}
 
 ## Table of Contents
-* (#${questions.installation})
-* (#${questions.usage})
-* (#${questions.license})
-* (#${questions.contributions})
-* (#${questions.troubleshooting})
+* [Installation](#installation)
+* [Usage](#usage)
+* [License](#license)
+* [Contributing](#contributing)
+* [Tests](#tests)
+* [Questions](#questions)
 
 ## Installation
 ${questions.installation}
@@ -97,68 +98,24 @@ ${questions.contributions}
 ${questions.troubleshooting}
 
 ## Questions
-${questions.fullName}
-${questions.email}
-${questions.github}
-        `, (err) =>
-          err ? console.log(err) : console.log('Success!')
+Repository Owner: ${questions.fullName} \n
+Email Address: ${questions.email} \n
+[Github profile](https://github.com/${questions.github}) \n
+${questions.contactRules}
+        `, 
+        //this is creating a catch incase things go wrong while using this application- shouldn't happen though lol
+        (err) =>
+          err ? console.log(err) : console.log('Your README.md file was created!')
         );
       });
 };
 
-
-//["What is your project title?", "What is the description of your project?", "What do you want inside the Table of Contents?", "Please type your installation instructions", "Please type what the usage of this project is", "What kind of license would you like?", "What are YOUR guidelines on contributions to this application", "What tests can a user run when troubleshooting this application?"];
-// TODO: Create a function to write README file
-// function writeToFile(fileName, data) {
-//     return inquirer.prompt(questions)
-// }
-//-----   ./README.md createElement?? or text content? w/ markdown syntax like ##Heading1 and #Heading2
-// TODO: Create a function to initialize app
-// function init() {
-    
-// }
-//if userAnswers === questions[0] return writeToFile()
-
-// Function call to initialize app
+//this calls the above function
 writeToFile();
+
+// TODO: Create a function to initialize app
+
+
 // init();
-
-
 
 /****************************************************************************************************************************/
-
-// var readMeFile = "LINK README HERE AND PASS AS PARAMETER??"
-// //["What is your project title?", "What is the description of your project?", "What do you want inside the Table of Contents?", "Please type your installation instructions", "Please type what the usage of this project is", "What kind of license would you like?", "What are YOUR guidelines on contributions to this application", "What tests can a user run when troubleshooting this application?"];
-// // TODO: Create a function to write README file
-// function writeToFile(fileName, data) {
-    
-// }
-// //-----   ./README.md createElement?? or text content? w/ markdown syntax like ##Heading1 and #Heading2
-// // TODO: Create a function to initialize app
-// function init() {
-//     //need to make a variable for user input(response)
-//     return inquirer.prompt(questions).then(response)
-//     //can i nest a function here that will run writeToFile()?
-// //like maybe a for loop that loops through questions
-// //if userAnswers === questions[0] return writeToFile()
-// }
-// // Function call to initialize app
-// writeToFile();
-// init();
-
-
-// var inquirer = require('inquirer');
-// inquirer
-//   .prompt([
-//     /* Pass your questions in here */
-//   ])
-//   .then((answers) => {
-//     // Use user feedback for... whatever!!
-//   })
-//   .catch((error) => {
-//     if (error.isTtyError) {
-//       // Prompt couldn't be rendered in the current environment
-//     } else {
-//       // Something else went wrong
-//     }
-//   }); console.log("test test")
