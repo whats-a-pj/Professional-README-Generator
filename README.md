@@ -11,6 +11,8 @@ I learned how to use node.js and inquirer; also how to use template literals, if
 
 [Walkthrough video](assets/README-Walkthrough.mp4)
 
+[README w/ tips & instructions](Develop/README.md)
+
 </details>
 
 <details>
