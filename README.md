@@ -9,7 +9,7 @@ I learned how to use node.js and inquirer; also how to use template literals, if
 <details>
 <summary> How to use this application </summary>
 
-[Walkthrough video](assets/README-Walkthrough.mp4)
+[Walkthrough video](https://drive.google.com/file/d/1L6f-wynTfdfhNP6nvvDbCka0KWTg0h34/view)
 
 [README w/ tips & instructions](Develop/README.md)
 
